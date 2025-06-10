@@ -24,15 +24,12 @@
     </style>
 </head>
 <body>
-    <iframe id="videoPlayer" src="https://drive.google.com/file/d/https://drive.google.com/file/d/17y4OxDQMpAx6-6hUGG2pRj0NKmNE8OnK/view?usp=sharing" allowfullscreen></iframe>
+    <iframe id="videoPlayer" src="https://drive.google.com/file/d/17y4OxDQMpAx6-6hUGG2pRj0NKmNE8OnK/preview" allowfullscreen></iframe>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const videoIframe = document.getElementById('videoPlayer');
 
-            // تلاش برای پخش تمام صفحه به محض بارگذاری
-            // توجه: مرورگرهای موبایل ممکن است به دلیل محدودیت‌های امنیتی، نیاز به تعامل کاربر داشته باشند.
-            // یعنی ممکن است کاربر مجبور شود یک بار روی ویدیو کلیک کند.
             function requestFullscreen() {
                 if (videoIframe.requestFullscreen) {
                     videoIframe.requestFullscreen();
@@ -45,19 +42,11 @@
                 }
             }
 
-            // سعی در اجرای تمام صفحه با تاخیر کم
-            // این می‌تواند به مرورگرها فرصت دهد تا iframe را رندر کنند.
             setTimeout(requestFullscreen, 1000); // 1 ثانیه تاخیر
 
-            // افزودن یک Listener برای زمانی که iframe بارگذاری شد
             videoIframe.onload = () => {
                 setTimeout(requestFullscreen, 500); // 0.5 ثانیه تاخیر پس از بارگذاری iframe
             };
-
-            // نکته: در بسیاری از مرورگرها، خصوصاً در موبایل، قابلیت autoplay (پخش خودکار)
-            // و fullscreen (تمام صفحه) بدون تعامل مستقیم کاربر (کلیک کردن) محدود شده است.
-            // کاربر ممکن است مجبور شود یک بار روی ویدیو کلیک کند تا پخش آغاز شود و/یا تمام صفحه شود.
-            // اگر از موبایل بازدید کننده مشکل دارید، ممکن است نیاز به آموزش کاربر برای کلیک روی ویدیو باشد.
         });
     </script>
 </body>
