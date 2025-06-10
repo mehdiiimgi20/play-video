@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پخش ویدیوی من</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* جلوگیری از اسکرول */
+            background-color: black; /* پس‌زمینه سیاه برای تجربه بهتر */
+            display: flex; /* برای مرکزیت بخشیدن به iframe */
+            justify-content: center;
+            align-items: center;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none; /* حذف حاشیه iframe */
+        }
+    </style>
+</head>
+<body>
+    <iframe id="videoPlayer" src="https://drive.google.com/file/d/https://drive.google.com/file/d/17y4OxDQMpAx6-6hUGG2pRj0NKmNE8OnK/view?usp=sharing" allowfullscreen></iframe>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoIframe = document.getElementById('videoPlayer');
+
+            // تلاش برای پخش تمام صفحه به محض بارگذاری
+            // توجه: مرورگرهای موبایل ممکن است به دلیل محدودیت‌های امنیتی، نیاز به تعامل کاربر داشته باشند.
+            // یعنی ممکن است کاربر مجبور شود یک بار روی ویدیو کلیک کند.
+            function requestFullscreen() {
+                if (videoIframe.requestFullscreen) {
+                    videoIframe.requestFullscreen();
+                } else if (videoIframe.mozRequestFullScreen) { /* Firefox */
+                    videoIframe.mozRequestFullScreen();
+                } else if (videoIframe.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+                    videoIframe.webkitRequestFullscreen();
+                } else if (videoIframe.msRequestFullscreen) { /* IE/Edge */
+                    videoIframe.msRequestFullscreen();
+                }
+            }
+
+            // سعی در اجرای تمام صفحه با تاخیر کم
+            // این می‌تواند به مرورگرها فرصت دهد تا iframe را رندر کنند.
+            setTimeout(requestFullscreen, 1000); // 1 ثانیه تاخیر
+
+            // افزودن یک Listener برای زمانی که iframe بارگذاری شد
+            videoIframe.onload = () => {
+                setTimeout(requestFullscreen, 500); // 0.5 ثانیه تاخیر پس از بارگذاری iframe
+            };
+
+            // نکته: در بسیاری از مرورگرها، خصوصاً در موبایل، قابلیت autoplay (پخش خودکار)
+            // و fullscreen (تمام صفحه) بدون تعامل مستقیم کاربر (کلیک کردن) محدود شده است.
+            // کاربر ممکن است مجبور شود یک بار روی ویدیو کلیک کند تا پخش آغاز شود و/یا تمام صفحه شود.
+            // اگر از موبایل بازدید کننده مشکل دارید، ممکن است نیاز به آموزش کاربر برای کلیک روی ویدیو باشد.
+        });
+    </script>
+</body>
+</html>
